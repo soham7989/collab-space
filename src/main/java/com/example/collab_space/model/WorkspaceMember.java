@@ -3,29 +3,32 @@ package com.example.collab_space.model;
 import com.example.collab_space.Enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Generated;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 
 @Entity
 @Data
-@Table(name = "users")
-public class User {
+@Table(name = "workspaceMember")
+public class WorkspaceMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long userId;
+    Long id;
+
+    @ManyToOne
     @Column(nullable = false)
-    String name;
-    String imageUrl;
+    Workspace workspace;
+
+    @ManyToOne
     @Column(nullable = false)
-    String email;
-    @Column(nullable = false)
-    String password;
+    User user;
+
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     Role role;
 
     @CreationTimestamp
-    LocalDate createdAt;
+    LocalDate joinedAt;
+
 }
